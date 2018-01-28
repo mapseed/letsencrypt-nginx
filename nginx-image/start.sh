@@ -3,7 +3,7 @@ sleep 3
 
 cat /etc/nginx/nginx.conf
 echo .
-echo Firing up nginx in the background.
+echo "Firing up nginx in the background."
 nginx
 
 # Check user has specified domain name
@@ -33,7 +33,10 @@ do
 done
 
 #go!
+echo "ssl cert found - killing acme challenge process..."
 kill $(ps aux | grep 'nginx' | awk '{print $2}')
 cp /etc/nginx/nginx-secure.conf /etc/nginx/nginx.conf
 
+echo "Firing up nginx with ssl config!"
+cat /etc/nginx/nginx.conf
 nginx -g 'daemon off;'
